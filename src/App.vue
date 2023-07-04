@@ -15,6 +15,7 @@ const handleClick = () => {
   <el-icon>
     <i-ep-setting />
   </el-icon>
+  <el-icon><IEpView /></el-icon>
 
   <el-button type="primary" @click="handleClick">小乔</el-button>
   <div>
