@@ -24,7 +24,8 @@ export default defineConfig({
       imports: [
         // presets
         'vue',
-        'vue-router'], // 自动导入 vue 相关函数，如 ref reactive toRef 等
+        'vue-router'
+      ], // 自动导入 vue 相关函数，如 ref reactive toRef 等
       resolvers: [
         ElementPlusResolver(),
 
