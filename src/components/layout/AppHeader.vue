@@ -40,7 +40,7 @@ import { isCollapse } from './isCollapse';
 .el-header {
     display: flex;
     align-items: center;
-    background-color: azure;
+    background-color: #dedfe0;
 
     .el-icon {
         margin-right: 18px;
