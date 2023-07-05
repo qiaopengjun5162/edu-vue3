@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const isCollapse = ref(false);
+import { isCollapse } from './isCollapse';
 </script>
 
 <template>
     <el-header>
         <!-- 图标 -->
-        <el-icon>
+        <el-icon @click="isCollapse = !isCollapse">
             <IEpExpand v-show="isCollapse" />
             <IEpFold v-show="!isCollapse" />
         </el-icon>
@@ -40,7 +40,7 @@ const isCollapse = ref(false);
 .el-header {
     display: flex;
     align-items: center;
-    background-color: palegreen;
+    background-color: azure;
 
     .el-icon {
         margin-right: 18px;
