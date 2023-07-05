@@ -1,22 +1,22 @@
+import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-// import path from 'path'
+import Inspect from 'vite-plugin-inspect'
 
-
-// const pathSrc = path.resolve(__dirname, 'src')
+const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // resolve: {
-  //   alias: {
-  //     '@': pathSrc,
-  //   },
-  // },
+  resolve: {
+    alias: {
+      '@': pathSrc,
+    },
+  },
   plugins: [
     vue(),
     AutoImport({
@@ -35,7 +35,9 @@ export default defineConfig({
           // prefix: 'Icon',
         })
       ],
-      eslintrc: { enabled: true } // eslint 会报 no-undef 错误，添加此项会生成 .eslintrc-auto-import.json
+      eslintrc: { enabled: true }, // eslint 会报 no-undef 错误，添加此项会生成 .eslintrc-auto-import.json
+      // 生成自动导入的TS声明文件
+      dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
     Components({
       resolvers: [
@@ -46,9 +48,12 @@ export default defineConfig({
         }),
         ElementPlusResolver()
       ], // 自动导入 Element Plus 组件，图标组件
+      dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
     Icons({
       autoInstall: true,
     }),
+
+    Inspect(),
   ],
 })
