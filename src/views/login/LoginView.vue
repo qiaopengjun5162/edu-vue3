@@ -1,25 +1,46 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
-import { reactive } from 'vue';
+import { ElMessage, FormInstance, FormRules } from 'element-plus';
+import { reactive, ref } from 'vue';
 // 表单响应式数据
 const form = reactive({ // 可以使用 ref
     phone: "18201288771",
-    password: "123",
+    password: "111111",
 })
 // 登录事件处理
-const onSubmit = () => {
-    ElMessage.success("提交表单数据")
+const onSubmit = async () => {
+    // 表单校验
+    await formRef.value?.validate().catch((err) => {
+        ElMessage.error("表单校验失败...")
+        throw err
+        // return new Promise(() => { });
+    })
+
+    // 正式发送登录请求
+    console.log("正式登录请求")
 }
+
+// 定义表单校验规则
+const rules = reactive<FormRules>({
+    phone: [
+        { required: true, message: "电话号码不能为空", trigger: "blur" },
+        { pattern: /^1\d{10}$/, message: "手机号必须是11位数字", trigger: "blur" },
+    ],
+    password: [
+        { required: true, message: "密码不能为空", trigger: "blur" },
+        { min: 6, max: 18, message: "密码长度需要6~18位", trigger: "blur" },
+    ]
+})
+const formRef = ref<FormInstance>()
 </script>
 
 <template>
     <div class="login">
-        <el-form :model="form" label-width="120px" label-position="top" size="large">
+        <el-form :model="form" :rules="rules" ref="formRef" label-width="120px" label-position="top" size="large">
             <h2>登录</h2>
-            <el-form-item label="手机号">
+            <el-form-item label="手机号" prop="phone">
                 <el-input v-model="form.phone" />
             </el-form-item>
-            <el-form-item label="密码">
+            <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" />
             </el-form-item>
             <el-form-item>
