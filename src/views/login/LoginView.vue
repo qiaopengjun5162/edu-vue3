@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
+import { login } from "../../api/users"
+
 // 表单响应式数据
 const form = reactive({ // 可以使用 ref
     phone: "18201288771",
@@ -9,14 +11,22 @@ const form = reactive({ // 可以使用 ref
 // 登录事件处理
 const onSubmit = async () => {
     // 表单校验
-    await formRef.value?.validate().catch((err) => {
+    await formRef.value?.validate().catch((err: Error) => {
         ElMessage.error("表单校验失败...")
         throw err
         // return new Promise(() => { });
     })
 
     // 正式发送登录请求
-    console.log("正式登录请求")
+    const data = await login(form).then((res) => {
+        if (!res.data.success) {
+            ElMessage.error('登录信息有误!')
+            throw new Error("登录信息有误!")
+        }
+        return res.data
+    })
+
+    console.log(data)
 }
 
 // 定义表单校验规则
