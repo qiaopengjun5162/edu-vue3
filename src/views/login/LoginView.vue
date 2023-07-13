@@ -10,9 +10,11 @@ const form = reactive({ // 可以使用 ref
 })
 // 登录事件处理
 const onSubmit = async () => {
+    isLoading.value = true
     // 表单校验
     await formRef.value?.validate().catch((err: Error) => {
         ElMessage.error("表单校验失败...")
+        isLoading.value = false
         throw err
         // return new Promise(() => { });
     })
@@ -21,12 +23,15 @@ const onSubmit = async () => {
     const data = await login(form).then((res) => {
         if (!res.data.success) {
             ElMessage.error('登录信息有误!')
+            isLoading.value = false
             throw new Error("登录信息有误!")
         }
         return res.data
     })
 
     console.log(data)
+
+    isLoading.value = false
 }
 
 // 定义表单校验规则
@@ -40,6 +45,10 @@ const rules = reactive<FormRules>({
         { min: 6, max: 18, message: "密码长度需要6~18位", trigger: "blur" },
     ]
 })
+
+// 定义是否登录加载中
+const isLoading = ref(false)
+
 const formRef = ref<FormInstance>()
 </script>
 
@@ -54,7 +63,7 @@ const formRef = ref<FormInstance>()
                 <el-input v-model="form.password" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">登录</el-button>
+                <el-button type="primary" @click="onSubmit" :loading="isLoading">登录</el-button>
             </el-form-item>
         </el-form>
     </div>

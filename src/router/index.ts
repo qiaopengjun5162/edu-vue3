@@ -17,6 +17,7 @@ const router: Router = createRouter({
             children: [
                 {
                     path: '',
+                    name: 'IndexView',
                     component: IndexView
                 },
                 {
