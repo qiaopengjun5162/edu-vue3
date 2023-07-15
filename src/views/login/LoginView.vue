@@ -2,11 +2,11 @@
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { login } from "../../api/users"
-// import { useRouter } from 'vue-router';
 import { useTokenStore } from "../../stores/mytoken"
 
 const store = useTokenStore()
 const router = useRouter()
+const route = useRoute()
 // 表单响应式数据
 const form = reactive({ // 可以使用 ref
     phone: "18201288771",
@@ -40,7 +40,7 @@ const onSubmit = async () => {
     isLoading.value = false
 
     ElMessage.success("登录成功")
-    router.push("/")
+    router.push((route.query.redirect as string) || "/")
 }
 
 // 定义表单校验规则

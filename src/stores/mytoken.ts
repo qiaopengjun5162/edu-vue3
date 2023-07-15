@@ -25,7 +25,7 @@ export const useTokenStore = defineStore('mytoken', () => {
             return JSON.parse((tokenJson.value || window.localStorage.getItem("TokenInfo")) ?? "{}")
         } catch (err) {
             ElMessage.error("json字符串格式不对,转化对象时失败..")
-            window.localStorage.setItem("TokenInfo", "")
+            window.localStorage.setItem("TokenInfo", " ")
             throw err
         }
     })
