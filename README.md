@@ -17,3 +17,32 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 # edu-vue3
+
+## 用户接口
+### 用户登录
+### 获取用户信息
+- url: /front/user/getInfo
+- method: GET
+- headers Authorization access_token
+- request 
+- response
+### 用户退出
+### 刷新token
+### 分页查询用户信息
+### 启用用户
+### 封禁用户
+## 菜单接口
+### 获取所有菜单信息
+### 保存或新增菜单
+### 删除菜单
+### 获取编辑菜单页面信息
+### 获取所有菜单并按层级展示
+## 资源类别管理
+### 查询资源分类列表
+### 保存或更新资源分类
+### 删除资源分类
+## 资源管理
+### 按条件分页查看资源
+### 保存或更新资源
+### 获取指定 ID 的资源
+### 删除某个资源

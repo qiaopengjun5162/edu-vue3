@@ -30,3 +30,23 @@ export const login = (loginInfo: LoginInfo) => {
     要求请求类型 application/json
         只需要直接传对象 data: loginInfo
 */
+
+
+// 获取用户信息
+type UserInfo = {
+    success: boolean
+    message: string
+    state: number
+    content: {
+        isUpdatedPassword: boolean
+        portrait: string
+        userName: string
+    }
+}
+
+export const getInfo = () => {
+    return request<UserInfo>({
+        method: "GET",
+        url: "/front/user/getInfo",
+    })
+}
